@@ -30,7 +30,7 @@ echo "ROS version is: "$ROS_VERSION
 rm -rf ../../../build/
 rm -rf ../../../devel/
 rm -rf ../../../install/
-clear src/CMakeLists.txt if it exists.
+#clear src/CMakeLists.txt if it exists.
 if [ -f ../../CMakeLists.txt ]; then
    rm -f ../../CMakeLists.txt
 fi
@@ -52,15 +52,15 @@ elif [ ${ROS_VERSION} = ${VERSION_ROS2} ]; then
 fi
 
 # build - build will be performed all together
-# pushd `pwd` > /dev/null
-# if [ $ROS_VERSION = ${VERSION_ROS1} ]; then
-#     cd ../../../
-#     catkin_make -DROS_EDITION=${VERSION_ROS1}
-# elif [ $ROS_VERSION = ${VERSION_ROS2} ]; then
-#     cd ../../../
-#     colcon build --cmake-args -DROS_EDITION=${VERSION_ROS2} -DHUMBLE_ROS=${ROS_HUMBLE}
-# fi
-# popd > /dev/null
+pushd `pwd` > /dev/null
+if [ $ROS_VERSION = ${VERSION_ROS1} ]; then
+    cd ../../../
+    catkin_make -DROS_EDITION=${VERSION_ROS1}
+elif [ $ROS_VERSION = ${VERSION_ROS2} ]; then
+    cd ../../../
+    colcon build --cmake-args -DROS_EDITION=${VERSION_ROS2} -DHUMBLE_ROS=${ROS_HUMBLE}
+fi
+popd > /dev/null
 
 # remove the substituted folders/files
 if [ $ROS_VERSION = ${VERSION_ROS2} ]; then
