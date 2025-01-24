@@ -1,5 +1,6 @@
 # judge which cmake codes to use 
-if(ROS_EDITION STREQUAL "ROS1")
+if(DEFINED ENV{ROS_VERSION} AND "$ENV{ROS_VERSION}" STREQUAL "1")
+  message(STATUS "ROS 1 detected")
 
   # Copyright(c) 2019 livoxtech limited.
 
@@ -183,8 +184,9 @@ if(ROS_EDITION STREQUAL "ROS1")
   # end of CMakeList.txt
   #---------------------------------------------------------------------------------------
 
-
-else(ROS_EDITION STREQUAL "ROS2")
+endif()
+if(DEFINED ENV{ROS_VERSION} AND "$ENV{ROS_VERSION}" STREQUAL "2")
+  message(STATUS "ROS 2 detected")
 
   # Copyright(c) 2020 livoxtech limited.
 
@@ -282,14 +284,20 @@ else(ROS_EDITION STREQUAL "ROS2")
   target_include_directories(${PROJECT_NAME} PRIVATE ${livox_sdk_INCLUDE_DIRS})
 
   # get include directories of custom msg headers
-  if(HUMBLE_ROS STREQUAL "humble")
-    rosidl_get_typesupport_target(cpp_typesupport_target
-    ${LIVOX_INTERFACES} "rosidl_typesupport_cpp")
-    target_link_libraries(${PROJECT_NAME} "${cpp_typesupport_target}")
-  else()
-    set(LIVOX_INTERFACE_TARGET "${LIVOX_INTERFACES}__rosidl_typesupport_cpp")
-    add_dependencies(${PROJECT_NAME} ${LIVOX_INTERFACES})
-    get_target_property(LIVOX_INTERFACES_INCLUDE_DIRECTORIES ${LIVOX_INTERFACE_TARGET} INTERFACE_INCLUDE_DIRECTORIES)
+  if(DEFINED ENV{ROS_DISTRO})
+    if("$ENV{ROS_DISTRO}" STREQUAL "humble")
+      rosidl_get_typesupport_target(cpp_typesupport_target
+      ${LIVOX_INTERFACES} "rosidl_typesupport_cpp")
+      target_link_libraries(${PROJECT_NAME} "${cpp_typesupport_target}")
+    elseif("$ENV{ROS_DISTRO}" STREQUAL "jazzy")
+      rosidl_get_typesupport_target(cpp_typesupport_target
+      ${LIVOX_INTERFACES} "rosidl_typesupport_cpp")
+      target_link_libraries(${PROJECT_NAME} "${cpp_typesupport_target}")
+    else()
+      set(LIVOX_INTERFACE_TARGET "${LIVOX_INTERFACES}__rosidl_typesupport_cpp")
+      add_dependencies(${PROJECT_NAME} ${LIVOX_INTERFACES})
+      get_target_property(LIVOX_INTERFACES_INCLUDE_DIRECTORIES ${LIVOX_INTERFACE_TARGET} INTERFACE_INCLUDE_DIRECTORIES)
+    endif()
   endif()
 
   # include file direcotry
