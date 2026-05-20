@@ -32,9 +32,9 @@ echo "ROS version is: "$ROS_VERSION
 
 # clear `build/` folder.
 # TODO: Do not clear these folders, if the last build is based on the same ROS version.
-rm -rf ../../build/
-rm -rf ../../devel/
-rm -rf ../../install/
+# rm -rf ../../build/
+# rm -rf ../../devel/
+# rm -rf ../../install/
 #clear src/CMakeLists.txt if it exists.
 # if [ -f ../../CMakeLists.txt ]; then
 #    rm -f ../../CMakeLists.txt
@@ -53,7 +53,6 @@ elif [ ${ROS_VERSION} = ${VERSION_ROS2} ]; then
         rm package.xml
     fi
     cp -f package_ROS2.xml package.xml
-    cp -rf launch_ROS2/ launch/
 fi
 
 # build - build will be performed all together
@@ -66,10 +65,5 @@ fi
 #     colcon build --symlink-install --cmake-args -DROS_EDITION=${VERSION_ROS2} -DHUMBLE_ROS=${ROS_HUMBLE} -DJAZZY_ROS=${ROS_JAZZY}
 # fi
 # popd > /dev/null
-
-# remove the substituted folders/files
-if [ $ROS_VERSION = ${VERSION_ROS2} ]; then
-    rm -rf launch/
-fi
 
 # popd > /dev/null
