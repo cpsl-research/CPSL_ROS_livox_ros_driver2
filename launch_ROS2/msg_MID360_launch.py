@@ -9,11 +9,15 @@ import os
 ARGUMENTS = [
     DeclareLaunchArgument(
         'tf_prefix', default_value='',
-        description='tf_prefix to apply to frame id')
+        description='tf_prefix to apply to frame id'),
+    DeclareLaunchArgument(
+        'user_config_file', default_value='MID360_config.json',
+        description='Livox configuration filename (resolves in config/)')
 ]
 
 def launch_setup(context,*args,**kwargs):
     tf_prefix = LaunchConfiguration('tf_prefix')
+    user_config_file = LaunchConfiguration('user_config_file')
 
     ################### user configure parameters for ros2 start ###################
     xfer_format   = 0    # 0-Pointcloud2(PointXYZRTL), 1-customized pointcloud format
@@ -27,7 +31,7 @@ def launch_setup(context,*args,**kwargs):
 
     cur_path = os.path.split(os.path.realpath(__file__))[0] + '/'
     cur_config_path = cur_path + '../config'
-    user_config_path = os.path.join(cur_config_path, 'MID360_config.json')
+    user_config_path = os.path.join(cur_config_path, user_config_file.perform(context))
     ################### user configure parameters for ros2 end #####################
 
     #load the tf prefix
