@@ -6,3 +6,5 @@ install/*
 build/*
 log/*
 config/MID360_config.json
+# Written by console (Settings > Sensors > Lidars) for this machine
+config/MID360_console.json
