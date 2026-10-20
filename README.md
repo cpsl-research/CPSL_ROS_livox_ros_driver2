@@ -1,3 +1,23 @@
+# CPSL changes
+
+CPSL fork of [Livox-SDK/livox_ros_driver2](https://github.com/Livox-SDK/livox_ros_driver2) for the Mid-360.
+Only the ROS 2 path is maintained; the upstream text below is unchanged.
+
+- `launch_ROS2/msg_MID360_launch.py`: new `tf_prefix` arg (frame id becomes `<prefix>/livox_frame`) and
+  `user_config_file` arg (a file name in `config/`, default `MID360_config.json`); PointCloud2 output.
+- `build_CPSL_ROS2_Sensors.sh [humble|jazzy]`: the build CPSL_ROS2_Sensors' `scripts/install.sh` runs.
+  `CMakeLists.txt` detects `ROS_DISTRO`, including Jazzy. The ROS 1 build script was removed.
+- `tools/setup/livox_host_setup.py`: finds Mid-360s with the SDK2 search broadcast, checks the host
+  subnet; `--apply` adds a secondary address (`--dry-run` prints the sudo commands first).
+- `config/MID360_config.json`: host `192.168.1.78`, lidar `192.168.1.178`.
+  `config/MID360_config_docker.json`: host IPs `0.0.0.0`, for a container or bridged network; select it
+  with `user_config_file:=MID360_config_docker.json`.
+- Quirk: `.gitignore` lists `config/MID360_config.json`, but the file is tracked, so the rule does
+  nothing and local edits show in `git status`. Prefer a copy with another name plus `user_config_file`.
+
+Used by [CPSL_ROS2_Sensors](https://github.com/cpsl-research/CPSL_ROS2_Sensors), which passes both launch args.
+
+---
 # Livox ROS Driver 2
 
 Livox ROS Driver 2 is the 2nd-generation driver package used to connect LiDAR products produced by Livox, applicable for ROS (noetic recommended) and ROS2 (foxy or humble recommended).
