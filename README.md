@@ -1,7 +1,8 @@
 # CPSL changes
 
 CPSL fork of [Livox-SDK/livox_ros_driver2](https://github.com/Livox-SDK/livox_ros_driver2) for the Mid-360.
-Only the ROS 2 path is maintained; the upstream text below is unchanged.
+Only the ROS 2 path is maintained; the upstream text below is unchanged. Ignore its build section and use
+`build_CPSL_ROS2_Sensors.sh` below.
 
 - `launch_ROS2/msg_MID360_launch.py`: new `tf_prefix` arg (frame id becomes `<prefix>/livox_frame`) and
   `user_config_file` arg (a file name in `config/`, default `MID360_config.json`); PointCloud2 output.
