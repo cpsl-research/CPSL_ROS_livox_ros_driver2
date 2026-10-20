@@ -15,8 +15,6 @@ Only the ROS 2 path is maintained; the upstream text below is unchanged.
 - Quirk: `.gitignore` lists `config/MID360_config.json`, but the file is tracked, so the rule does
   nothing and local edits show in `git status`. Prefer a copy with another name plus `user_config_file`.
 
-Used by [CPSL_ROS2_Sensors](https://github.com/cpsl-research/CPSL_ROS2_Sensors), which passes both launch args.
-
 ---
 # Livox ROS Driver 2
 
