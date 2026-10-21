@@ -13,8 +13,6 @@ Only the ROS 2 path is maintained; the upstream text below is unchanged. Ignore 
 - `config/MID360_config.json`: host `192.168.1.78`, lidar `192.168.1.178`.
   `config/MID360_config_docker.json`: host IPs `0.0.0.0`, for a container or bridged network; select it
   with `user_config_file:=MID360_config_docker.json`.
-- Quirk: `.gitignore` lists `config/MID360_config.json`, but the file is tracked, so the rule does
-  nothing and local edits show in `git status`. Prefer a copy with another name plus `user_config_file`.
 
 ---
 # Livox ROS Driver 2
